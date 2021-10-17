@@ -15,7 +15,7 @@
                 case PolicyType.Flood:
                     return new FloodPolicyRater(engine, engine.Logger);
                 default:
-                    return new UnknownPolicyRater(engine, engine.Logger);
+                    return null;
             }
         }
     }
