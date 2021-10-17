@@ -2,7 +2,6 @@
 
 namespace Rating
 {
-
     public class Policy
     {
         public PolicyType Type { get; set; }
