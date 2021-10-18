@@ -2,29 +2,29 @@
 {
     public class FloodPolicyRater : Rater
     {
-        public FloodPolicyRater(RatingEngine engine, ConsoleLogger logger)
-            : base(engine, logger)
+        public FloodPolicyRater(ConsoleLogger logger)
+            : base( logger)
         {
         }
 
-        public override void Rate(Policy policy)
+        public override decimal Rate(Policy policy)
         {
             _logger.Log("Rating FLOOD policy...");
             _logger.Log("Validating policy.");
             if (policy.BondAmount == 0 || policy.Valuation == 0)
             {
                 _logger.Log("Flood policy must specify Bond Amount and Valuation.");
-                return;
+                return 0m;
             }
             if (policy.ElevationAboveSeaLevelFeet <= 0)
             {
                 _logger.Log("Flood policy is not available for elevations at or below sea level.");
-                return;
+                return 0m;
             }
             if (policy.BondAmount < 0.8m * policy.Valuation)
             {
                 _logger.Log("Insufficient bond amount.");
-                return;
+                return 0m;
             }
 
             decimal multiple = 1.0m;
@@ -40,7 +40,7 @@
             {
                 multiple = 1.1m;
             }
-            _engine.Rating = policy.BondAmount * 0.05m * multiple;
+            return policy.BondAmount * 0.05m * multiple;
         }
     }
 }

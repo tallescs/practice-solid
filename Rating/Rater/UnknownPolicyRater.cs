@@ -2,14 +2,15 @@
 {
     public class UnknownPolicyRater : Rater
     {
-        public UnknownPolicyRater(RatingEngine engine, ConsoleLogger logger)
-            : base(engine, logger)
+        public UnknownPolicyRater(ConsoleLogger logger)
+            : base(logger)
         {
         }
 
-        public override void Rate(Policy policy)
+        public override decimal Rate(Policy policy)
         {
             _logger.Log("Unknown policy type");
+            return 0;
         }
     }
 }

@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             var logger = new ConsoleLogger();
-            logger.Log("Ardalis Insurance Rating System Starting...");
+            logger.Log("Insurance Rating System Starting...");
 
             var engine = new RatingEngine();
             engine.Rate();

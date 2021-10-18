@@ -4,28 +4,29 @@ namespace Rating.Rater
 {
     public class AutoPolicyRater : Rater
     {
-        public AutoPolicyRater(RatingEngine engine, ConsoleLogger logger)
-            : base(engine, logger)
+        public AutoPolicyRater(ConsoleLogger logger)
+            : base(logger)
         {
         }
 
-        public override void Rate(Policy policy)
+        public override decimal Rate(Policy policy)
         {
             _logger.Log("Rating AUTO policy...");
             _logger.Log("Validating policy.");
             if (String.IsNullOrEmpty(policy.Make))
             {
                 _logger.Log("Auto policy must specify Make");
-                return;
+                return 0m;
             }
             if (policy.Make == "BMW")
             {
                 if (policy.Deductible < 500)
                 {
-                    _engine.Rating = 1000m;
+                    return 1000m;
                 }
-                _engine.Rating = 900m;
+                return 900m;
             }
+            return 0m;
         }
     }
 }

@@ -4,29 +4,29 @@ namespace Rating.Rater
 {
     public class LifePolicyRater : Rater
     {
-        public LifePolicyRater(RatingEngine engine, ConsoleLogger logger)
-            : base(engine, logger)
+        public LifePolicyRater(ConsoleLogger logger)
+            : base( logger)
         {
         }
 
-        public override void Rate(Policy policy)
+        public override decimal Rate(Policy policy)
         {
             _logger.Log("Rating LIFE policy...");
             _logger.Log("Validating policy.");
             if (policy.DateOfBirth == DateTime.MinValue)
             {
                 _logger.Log("Life policy must include Date of Birth.");
-                return;
+                return 0m;
             }
             if (policy.DateOfBirth < DateTime.Today.AddYears(-100))
             {
                 _logger.Log("Centenarians are not eligible for coverage.");
-                return;
+                return 0m;
             }
             if (policy.Amount == 0)
             {
                 _logger.Log("Life policy must include an Amount.");
-                return;
+                return 0m;
             }
             int age = DateTime.Today.Year - policy.DateOfBirth.Year;
             if (policy.DateOfBirth.Month == DateTime.Today.Month &&
@@ -38,10 +38,9 @@ namespace Rating.Rater
             decimal baseRate = policy.Amount * age / 200;
             if (policy.IsSmoker)
             {
-                _engine.Rating = baseRate * 2;
-                return;
+               return baseRate * 2;
             }
-            _engine.Rating = baseRate;
+            return baseRate;
         }
     }
 }

@@ -23,8 +23,8 @@ namespace Rating
 
             var factory = new RaterFactory();
 
-            var rater = factory.Create(policy, this);
-            rater.Rate(policy);
+            var rater = factory.Create(policy, Logger);
+            Rating = rater.Rate(policy);
 
             Logger.Log("Rating completed.");
         }
