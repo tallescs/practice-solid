@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Rating.Infrastructure;
+using System;
 
 namespace Rating.Rater
 {
     public class AutoPolicyRater : Rater
     {
-        public AutoPolicyRater(ConsoleLogger logger)
+        public AutoPolicyRater(ILogger logger)
             : base(logger)
         {
         }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Rating
+namespace Rating.Infrastructure
 {
-    public class ConsoleLogger
+    public class ConsoleLogger : ILogger
     {
         public void Log(string message) =>
             Console.WriteLine(message);

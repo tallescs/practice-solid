@@ -1,8 +1,10 @@
-﻿namespace Rating.Rater
+﻿using Rating.Infrastructure;
+
+namespace Rating.Rater
 {
     public class LandPolicyRater : Rater
     {
-        public LandPolicyRater(ConsoleLogger logger)
+        public LandPolicyRater(ILogger logger)
             : base(logger)
         {
         }

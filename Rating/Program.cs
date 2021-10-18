@@ -1,4 +1,6 @@
-﻿namespace Rating
+﻿using Rating.Infrastructure;
+
+namespace Rating
 {
     class Program
     {
@@ -7,7 +9,7 @@
             var logger = new ConsoleLogger();
             logger.Log("Insurance Rating System Starting...");
 
-            var engine = new RatingEngine();
+            var engine = new RatingEngine(logger);
             engine.Rate();
 
             if (engine.Rating > 0)

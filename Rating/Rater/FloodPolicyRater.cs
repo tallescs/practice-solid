@@ -1,8 +1,10 @@
-﻿namespace Rating.Rater
+﻿using Rating.Infrastructure;
+
+namespace Rating.Rater
 {
     public class FloodPolicyRater : Rater
     {
-        public FloodPolicyRater(ConsoleLogger logger)
+        public FloodPolicyRater(ILogger logger)
             : base( logger)
         {
         }

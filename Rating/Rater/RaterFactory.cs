@@ -1,8 +1,10 @@
-﻿namespace Rating.Rater
+﻿using Rating.Infrastructure;
+
+namespace Rating.Rater
 {
     public class RaterFactory
     {
-        public Rater Create(Policy policy, ConsoleLogger logger)
+        public Rater Create(Policy policy, ILogger logger)
         {
             switch(policy.Type)
             {

@@ -1,8 +1,10 @@
-﻿namespace Rating.Rater
+﻿using Rating.Infrastructure;
+
+namespace Rating.Rater
 {
     public class UnknownPolicyRater : Rater
     {
-        public UnknownPolicyRater(ConsoleLogger logger)
+        public UnknownPolicyRater(ILogger logger)
             : base(logger)
         {
         }

@@ -1,11 +1,20 @@
 ﻿using Newtonsoft.Json;
 using NUnit.Framework;
+using Rating.Infrastructure;
 using System.IO;
 
 namespace Rating.Tests
 {
     public class RatingEngineUnitTests
     {
+
+        private ILogger logger;
+        [SetUp]
+        protected void SetUp()
+        {
+            logger = new ConsoleLogger();
+        }
+
         [Test]
         public void WhenLand_BoundAndValuation2000_ExpectRating100()
         {
@@ -18,7 +27,7 @@ namespace Rating.Tests
             var jsonText = JsonConvert.SerializeObject(policy);
             File.WriteAllText("policy.json", jsonText);
 
-            var ratingEngine = new RatingEngine();
+            var ratingEngine = new RatingEngine(logger);
             ratingEngine.Rate();
 
             Assert.AreEqual(100, ratingEngine.Rating);
@@ -37,7 +46,7 @@ namespace Rating.Tests
             var jsonText = JsonConvert.SerializeObject(policy);
             File.WriteAllText("policy.json", jsonText);
 
-            var ratingEngine = new RatingEngine();
+            var ratingEngine = new RatingEngine(logger);
             ratingEngine.Rate();
 
             Assert.AreEqual(0, ratingEngine.Rating);
@@ -55,7 +64,7 @@ namespace Rating.Tests
             var jsonText = JsonConvert.SerializeObject(policy);
             File.WriteAllText("policy.json", jsonText);
 
-            var ratingEngine = new RatingEngine();
+            var ratingEngine = new RatingEngine(logger);
             ratingEngine.Rate();
 
             Assert.AreEqual(900, ratingEngine.Rating);
@@ -75,7 +84,7 @@ namespace Rating.Tests
             var jsonText = JsonConvert.SerializeObject(policy);
             File.WriteAllText("policy.json", jsonText);
 
-            var ratingEngine = new RatingEngine();
+            var ratingEngine = new RatingEngine(logger);
             ratingEngine.Rate();
 
             Assert.AreEqual(1000, ratingEngine.Rating);
