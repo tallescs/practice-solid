@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Rating
+namespace Rating.Infrastructure
 {
-    public class JsonPolicySerializer
+    public class JsonPolicySerializer : IPolicySerializer
     {
-        public Policy GetPolicyFromJson(string policyJson)
+        public Policy GetPolicyFromString(string policyJson)
         {
             return JsonConvert.DeserializeObject<Policy>(policyJson,
                 new StringEnumConverter());

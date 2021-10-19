@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Rating.Infrastructure
+﻿namespace Rating.Infrastructure
 {
-    interface IPolicySerializer
+    public interface IPolicySerializer
     {
+        Policy GetPolicyFromString(string text);
     }
 }

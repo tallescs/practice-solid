@@ -10,12 +10,19 @@ namespace Rating
     public class RatingEngine
     {
         private readonly ILogger _logger;
-        private readonly FilePolicySource _policySource = new FilePolicySource();
-        private readonly JsonPolicySerializer _policySeralizer = new JsonPolicySerializer();
+        private readonly IPolicySource _policySource;
+        private readonly IPolicySerializer _policySerializer;
+        private readonly RaterFactory _raterFactory;
 
-        public RatingEngine(ILogger logger)
+        public RatingEngine(ILogger logger,
+            IPolicySource policySource,
+            IPolicySerializer policySerializer,
+            RaterFactory raterFactory)
         {
             _logger = logger;
+            _policySource = policySource;
+            _policySerializer = policySerializer;
+            _raterFactory = raterFactory;
         }
 
         public decimal Rating { get; set; }
@@ -25,11 +32,9 @@ namespace Rating
             _logger.Log("Loading policy.");
 
             string policyJson = _policySource.GetPolicyFromSource();
-            var policy = _policySeralizer.GetPolicyFromJson(policyJson);
+            var policy = _policySerializer.GetPolicyFromString(policyJson);
 
-            var factory = new RaterFactory();
-
-            var rater = factory.Create(policy, _logger);
+            var rater = _raterFactory.Create(policy);
             Rating = rater.Rate(policy);
 
             _logger.Log("Rating completed.");

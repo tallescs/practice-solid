@@ -1,8 +1,8 @@
 ﻿using System.IO;
 
-namespace Rating
+namespace Rating.Infrastructure
 {
-    public class FilePolicySource
+    public class FilePolicySource : IPolicySource
     {
         public string GetPolicyFromSource() =>
             File.ReadAllText("policy.json");

@@ -1,18 +1,27 @@
 ﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using Rating.Infrastructure;
-using System.IO;
+using Rating.Rater;
 
 namespace Rating.Tests
 {
     public class RatingEngineUnitTests
     {
+        private FakeLogger _logger;
+        private FakePolicySource _policySource;
+        private JsonPolicySerializer _policySerializer;
+        private RatingEngine _ratingEngine;
 
-        private ILogger logger;
-        [SetUp]
-        protected void SetUp()
+        public RatingEngineUnitTests()
         {
-            logger = new ConsoleLogger();
+            _logger = new FakeLogger();
+            _policySource = new FakePolicySource();
+            _policySerializer = new JsonPolicySerializer();
+
+            _ratingEngine = new RatingEngine(_logger, 
+                _policySource, 
+                _policySerializer,
+                new RaterFactory(_logger));
         }
 
         [Test]
@@ -24,13 +33,13 @@ namespace Rating.Tests
                 BondAmount = 2000,
                 Valuation = 2000
             };
+
             var jsonText = JsonConvert.SerializeObject(policy);
-            File.WriteAllText("policy.json", jsonText);
+            _policySource.PolicyString = jsonText;
 
-            var ratingEngine = new RatingEngine(logger);
-            ratingEngine.Rate();
+            _ratingEngine.Rate();
 
-            Assert.AreEqual(100, ratingEngine.Rating);
+            Assert.AreEqual(100, _ratingEngine.Rating);
         }
 
         [Test]
@@ -44,12 +53,11 @@ namespace Rating.Tests
             };
 
             var jsonText = JsonConvert.SerializeObject(policy);
-            File.WriteAllText("policy.json", jsonText);
+            _policySource.PolicyString = jsonText;
 
-            var ratingEngine = new RatingEngine(logger);
-            ratingEngine.Rate();
+            _ratingEngine.Rate();
 
-            Assert.AreEqual(0, ratingEngine.Rating);
+            Assert.AreEqual(0, _ratingEngine.Rating);
         }
 
         [Test]
@@ -62,12 +70,11 @@ namespace Rating.Tests
                 Make = "BMW"
             };
             var jsonText = JsonConvert.SerializeObject(policy);
-            File.WriteAllText("policy.json", jsonText);
+            _policySource.PolicyString = jsonText;
 
-            var ratingEngine = new RatingEngine(logger);
-            ratingEngine.Rate();
+            _ratingEngine.Rate();
 
-            Assert.AreEqual(900, ratingEngine.Rating);
+            Assert.AreEqual(900, _ratingEngine.Rating);
         }
     
         [Test]
@@ -82,12 +89,11 @@ namespace Rating.Tests
             };
 
             var jsonText = JsonConvert.SerializeObject(policy);
-            File.WriteAllText("policy.json", jsonText);
+            _policySource.PolicyString = jsonText;
 
-            var ratingEngine = new RatingEngine(logger);
-            ratingEngine.Rate();
+            _ratingEngine.Rate();
 
-            Assert.AreEqual(1000, ratingEngine.Rating);
+            Assert.AreEqual(1000, _ratingEngine.Rating);
         }
     }
 }

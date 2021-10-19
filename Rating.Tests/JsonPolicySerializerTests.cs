@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Rating.Infrastructure;
 
 namespace Rating.Tests
 {
@@ -11,7 +12,7 @@ namespace Rating.Tests
             var serializer = new JsonPolicySerializer();
             var emptyPolicy = new Policy();
 
-            var result = serializer.GetPolicyFromJson(jsonString);
+            var result = serializer.GetPolicyFromString(jsonString);
 
             AssertPoliciesAreEqual(emptyPolicy, result);
         }
@@ -23,7 +24,7 @@ namespace Rating.Tests
             var serializer = new JsonPolicySerializer();
             var policy = new Policy { Type = PolicyType.Land, BondAmount = 1000 };
 
-            var result = serializer.GetPolicyFromJson(json);
+            var result = serializer.GetPolicyFromString(json);
 
             AssertPoliciesAreEqual(policy, result);
         }

@@ -1,4 +1,5 @@
 ﻿using Rating.Infrastructure;
+using Rating.Rater;
 
 namespace Rating
 {
@@ -6,10 +7,14 @@ namespace Rating
     {
         static void Main(string[] args)
         {
-            var logger = new ConsoleLogger();
+            ILogger logger = new ConsoleLogger();
             logger.Log("Insurance Rating System Starting...");
 
-            var engine = new RatingEngine(logger);
+
+            var engine = new RatingEngine(logger,
+                new FilePolicySource(),
+                new JsonPolicySerializer(),
+                new RaterFactory(logger));
             engine.Rate();
 
             if (engine.Rating > 0)

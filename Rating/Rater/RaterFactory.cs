@@ -4,20 +4,27 @@ namespace Rating.Rater
 {
     public class RaterFactory
     {
-        public Rater Create(Policy policy, ILogger logger)
+        private readonly ILogger _logger;
+
+        public RaterFactory(ILogger logger)
         {
-            switch(policy.Type)
+            _logger = logger;
+        }
+
+        public Rater Create(Policy policy)
+        {
+            switch (policy.Type)
             {
                 case PolicyType.Auto:
-                    return new AutoPolicyRater(logger);
+                    return new AutoPolicyRater(_logger);
                 case PolicyType.Land:
-                    return new LandPolicyRater(logger);
+                    return new LandPolicyRater(_logger);
                 case PolicyType.Life:
-                    return new LifePolicyRater(logger);
+                    return new LifePolicyRater(_logger);
                 case PolicyType.Flood:
-                    return new FloodPolicyRater(logger);
+                    return new FloodPolicyRater(_logger);
                 default:
-                    return new UnknownPolicyRater(logger); ;
+                    return new UnknownPolicyRater(_logger);
             }
         }
     }
