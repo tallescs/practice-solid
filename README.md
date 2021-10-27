@@ -1,7 +1,7 @@
 # practice-solid
 Part of daily plan for studying SOLID principles.
 
-Based on Ardalis repo[https://github.com/ardalis/SolidSample] and his Pluralsight Course.
+Based on Ardalis [repo](https://github.com/ardalis/SolidSample) and his Pluralsight Course.
 
 ## ISP branch
 The ISP branch is equal to LSP branch because I didn't like the code introduced at ISP Module at the course because all it's code is replaced/deleted later.
